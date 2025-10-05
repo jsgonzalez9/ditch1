@@ -104,7 +104,7 @@
             <a href="#features" class="text-gray-700 hover:text-cyan-600 transition-colors">Features</a>
             <a href="#how-it-works" class="text-gray-700 hover:text-cyan-600 transition-colors">How It Works</a>
             <a href="#support" class="text-gray-700 hover:text-cyan-600 transition-colors">Support</a>
-            <a href="/app" class="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-6 py-2 rounded-full hover:shadow-lg transition-all">Open App</a>
+            <a href="https://script.google.com/macros/s/AKfycbyJx72ORcdmE9W5osi2P50sXMRHmjjL6o6bNEaltmsHxrFdMtklQrvRU1MYEMzcjnwvag/exec" class="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-6 py-2 rounded-full hover:shadow-lg transition-all">Join Waitlist</a>
           </div>
         </div>
       </div>
@@ -338,6 +338,42 @@
         <div class="border-t border-gray-800 pt-8 text-sm text-center">
           <p>&copy; 2025 Ditch. All rights reserved.</p>
           <p class="mt-2 text-gray-500">Ditch is a tracking and support tool. It does not provide medical advice. Consult healthcare professionals for medical guidance.</p>
+          <script>
+  const WAITLIST_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyJx72ORcdmE9W5osi2P50sXMRHmjjL6o6bNEaltmsHxrFdMtklQrvRU1MYEMzcjnwvag/exec';
+
+  async function joinWaitlist(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = form.querySelector('button');
+    const msg = document.getElementById('waitlist-msg');
+    const email = form.email.value.trim();
+    const name = form.name.value.trim();
+
+    msg.textContent = '';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch(WAITLIST_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, name, source: 'landing' })
+      });
+
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.ok) {
+        msg.textContent = data.dedup ? 'You’re already on the list — thanks!' : 'Thanks — you’re on the list!';
+        form.reset();
+      } else {
+        throw new Error(data?.error || 'Request failed');
+      }
+    } catch (err) {
+      console.error(err);
+      msg.textContent = 'Something went wrong. Please try again in a moment.';
+    } finally {
+      btn.disabled = false;
+    }
+  }
+</script>
         </div>
       </div>
     </footer>
