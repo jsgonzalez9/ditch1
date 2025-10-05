@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ditch - iOS App Icons Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 2.5em;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #94a3b8;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+
+        .download-all {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .download-all button {
+            background: linear-gradient(135deg, #06b6d4, #14b8a6);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 12px;
+            font-size: 1.1em;
+            cursor: pointer;
+            font-weight: 500;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
+        }
+
+        .download-all button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(6, 182, 212, 0.4);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .icon-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .icon-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .icon-preview {
+            width: 100%;
+            aspect-ratio: 1;
+            margin-bottom: 15px;
+            border-radius: 22.37%;
+            overflow: hidden;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .icon-preview canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .icon-size {
+            color: white;
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .icon-name {
+            color: #06b6d4;
+            font-weight: 500;
+            margin-bottom: 5px;
+            font-size: 0.95em;
+        }
+
+        .icon-usage {
+            color: #94a3b8;
+            font-size: 0.85em;
+            margin-bottom: 15px;
+            min-height: 40px;
+        }
+
+        .download-btn {
+            background: #06b6d4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            width: 100%;
+            transition: background 0.3s;
+            font-weight: 500;
+        }
+
+        .download-btn:hover {
+            background: #0891b2;
+        }
+
+        .instructions {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+        }
+
+        .instructions h2 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            font-weight: 500;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+
+        .instructions li {
+            margin-bottom: 10px;
+        }
+
+        .instructions strong {
+            color: #06b6d4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ditch iOS App Icons</h1>
+        <p class="subtitle">All required icon sizes for iOS App Store submission</p>
+
+        <div class="instructions">
+            <h2>📱 How to Use These Icons</h2>
+            <ol>
+                <li>Click <strong>"Download All Icons (ZIP)"</strong> to get all sizes at once</li>
+                <li>Extract the ZIP file on your computer</li>
+                <li>In Xcode, select your app target → General → App Icons and Launch Screen</li>
+                <li>Drag and drop each icon size into the corresponding slot in the AppIcon asset catalog</li>
+                <li>Or use <strong>Asset Catalog Creator</strong> to automatically generate all sizes from the 1024×1024 icon</li>
+            </ol>
+        </div>
+
+        <div class="download-all">
+            <button onclick="downloadAll()">📦 Download All Icons (ZIP)</button>
+        </div>
+
+        <div class="grid" id="iconGrid"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script>
+        const iconSizes = [
+            { size: 1024, name: 'App Store', usage: 'Required for App Store listing', filename: 'AppIcon-1024' },
+            { size: 180, name: 'iPhone (@3x)', usage: 'iPhone 12 Pro Max, 13 Pro Max, 14 Plus, 14 Pro Max', filename: 'AppIcon-60@3x' },
+            { size: 120, name: 'iPhone (@2x)', usage: 'iPhone SE, 11, 12 mini, 13 mini', filename: 'AppIcon-60@2x' },
+            { size: 87, name: 'Settings (@3x)', usage: 'iPhone Settings with Retina display', filename: 'AppIcon-29@3x' },
+            { size: 80, name: 'Spotlight (@2x)', usage: 'iPad Spotlight search results', filename: 'AppIcon-40@2x' },
+            { size: 76, name: 'iPad (@1x)', usage: 'iPad home screen (non-Retina)', filename: 'AppIcon-76' },
+            { size: 60, name: 'Notification (@3x)', usage: 'iPhone notifications', filename: 'AppIcon-20@3x' },
+            { size: 58, name: 'Settings (@2x)', usage: 'iPhone/iPad Settings', filename: 'AppIcon-29@2x' },
+            { size: 40, name: 'Spotlight (@2x)', usage: 'Spotlight search results', filename: 'AppIcon-20@2x' },
+            { size: 29, name: 'Settings (@1x)', usage: 'iPad Settings icon', filename: 'AppIcon-29' },
+            { size: 20, name: 'Notification (@1x)', usage: 'iPad notifications', filename: 'AppIcon-20' }
+        ];
+
+        function createIcon(size) {
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+
+            ctx.fillStyle = '#0f172a';
+            ctx.fillRect(0, 0, size, size);
+
+            const fontSize = size * 0.35;
+            const lineY = size * 0.72;
+            const lineHeight = Math.max(2, size * 0.018);
+            const letterSpacing = size * 0.04;
+
+            const textGradient = ctx.createLinearGradient(0, 0, size, 0);
+            textGradient.addColorStop(0, '#06b6d4');
+            textGradient.addColorStop(1, '#14b8a6');
+
+            ctx.fillStyle = textGradient;
+            ctx.font = `100 ${fontSize}px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+
+            const text = 'ditch';
+            const totalWidth = ctx.measureText(text).width + (letterSpacing * (text.length - 1));
+            let x = (size - totalWidth) / 2;
+
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                const charWidth = ctx.measureText(char).width;
+                ctx.fillText(char, x + charWidth / 2, size * 0.45);
+                x += charWidth + letterSpacing;
+            }
+
+            const lineGradient = ctx.createLinearGradient(size * 0.15, 0, size * 0.85, 0);
+            lineGradient.addColorStop(0, 'rgba(6, 182, 212, 0)');
+            lineGradient.addColorStop(0.5, 'rgba(20, 184, 166, 1)');
+            lineGradient.addColorStop(1, 'rgba(20, 184, 166, 0)');
+
+            ctx.fillStyle = lineGradient;
+            ctx.fillRect(size * 0.15, lineY, size * 0.7, lineHeight);
+
+            return canvas;
+        }
+
+        function downloadCanvas(canvas, filename) {
+            canvas.toBlob((blob) => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                a.click();
+                URL.revokeObjectURL(url);
+            }, 'image/png');
+        }
+
+        async function downloadAll() {
+            const zip = new JSZip();
+            const folder = zip.folder('ditch-ios-icons');
+
+            const readme = `Ditch iOS App Icons
+====================
+
+This package contains all required iOS app icon sizes for App Store submission.
+
+Icon Sizes Included:
+- 1024×1024: App Store listing (required)
+- 180×180: iPhone @3x
+- 120×120: iPhone @2x
+- 87×87: Settings @3x
+- 80×80: Spotlight @2x
+- 76×76: iPad @1x
+- 60×60: Notification @3x
+- 58×58: Settings @2x
+- 40×40: Spotlight @2x
+- 29×29: Settings @1x
+- 20×20: Notification @1x
+
+How to Use:
+1. Open your Xcode project
+2. Select your app target → General → App Icons
+3. Drag and drop each icon into the corresponding slot
+4. Or use Asset Catalog Creator for automatic import
+
+Generated: ${new Date().toLocaleDateString()}
+`;
+
+            folder.file('README.txt', readme);
+
+            for (const icon of iconSizes) {
+                const canvas = createIcon(icon.size);
+                const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+                folder.file(`${icon.filename}.png`, blob);
+            }
+
+            const content = await zip.generateAsync({
+                type: 'blob',
+                compression: 'DEFLATE',
+                compressionOptions: { level: 9 }
+            });
+
+            const url = URL.createObjectURL(content);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'ditch-ios-app-icons.zip';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        const grid = document.getElementById('iconGrid');
+        iconSizes.forEach(icon => {
+            const card = document.createElement('div');
+            card.className = 'icon-card';
+
+            const preview = document.createElement('div');
+            preview.className = 'icon-preview';
+            const canvas = createIcon(icon.size);
+            preview.appendChild(canvas);
+
+            const size = document.createElement('div');
+            size.className = 'icon-size';
+            size.textContent = `${icon.size}×${icon.size}`;
+
+            const name = document.createElement('div');
+            name.className = 'icon-name';
+            name.textContent = icon.name;
+
+            const usage = document.createElement('div');
+            usage.className = 'icon-usage';
+            usage.textContent = icon.usage;
+
+            const btn = document.createElement('button');
+            btn.className = 'download-btn';
+            btn.textContent = '⬇ Download PNG';
+            btn.onclick = () => downloadCanvas(canvas, `${icon.filename}.png`);
+
+            card.appendChild(preview);
+            card.appendChild(size);
+            card.appendChild(name);
+            card.appendChild(usage);
+            card.appendChild(btn);
+            grid.appendChild(card);
+        });
+    </script>
+</body>
+</html>
