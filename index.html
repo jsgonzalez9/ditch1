@@ -298,6 +298,24 @@
       </div>
     </section>
 
+    <section id="waitlist" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+  <div class="max-w-xl mx-auto text-center">
+    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Join the Waitlist</h2>
+    <p class="text-gray-600 mb-6">Get early access and product updates.</p>
+
+    <form id="waitlist-form" class="flex flex-col sm:flex-row gap-3 justify-center" onsubmit="return joinWaitlist(event)">
+      <input type="text" name="name" placeholder="Your name (optional)" class="border border-gray-300 px-4 py-3 rounded-lg w-full sm:w-60 focus:outline-none focus:ring-2 focus:ring-cyan-500" />
+      <input type="email" name="email" placeholder="you@email.com" required class="border border-gray-300 px-4 py-3 rounded-lg w-full sm:w-80 focus:outline-none focus:ring-2 focus:ring-cyan-500" />
+      <button class="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-6 py-3 rounded-lg shadow hover:shadow-lg transition-all disabled:opacity-60 disabled:cursor-not-allowed">
+        Join Waitlist
+      </button>
+    </form>
+
+    <p id="waitlist-msg" class="text-sm mt-3 text-gray-600"></p>
+    <p class="text-xs text-gray-500 mt-2">By joining, you agree to receive occasional updates. See our <a href="/privacy.html" class="text-cyan-600 underline">Privacy Policy</a>.</p>
+  </div>
+</section>
+
     <footer id="support" class="bg-gray-900 text-gray-300 py-12 px-4 sm:px-6 lg:px-8">
       <div class="max-w-7xl mx-auto">
         <div class="grid md:grid-cols-4 gap-8 mb-8">
