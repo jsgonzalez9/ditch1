@@ -17,11 +17,13 @@ import HealthTimeline from './components/HealthTimeline';
 import BuddySystem from './components/BuddySystem';
 import { Pricing } from './pages/Pricing';
 import { CheckoutSuccess } from './pages/CheckoutSuccess';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
 import { BarChart3, Target, User, Activity, Crown, Sparkles, Bell, Heart, Users, AlertCircle } from 'lucide-react';
 import { PremiumBadge } from './components/PremiumGate';
 import { supabase } from './lib/supabase';
 
-type Tab = 'counter' | 'stats' | 'goals' | 'notifications' | 'premium' | 'profile' | 'upgrade' | 'pricing' | 'checkout-success' | 'cravings' | 'community' | 'health' | 'buddies';
+type Tab = 'counter' | 'stats' | 'goals' | 'notifications' | 'premium' | 'profile' | 'upgrade' | 'pricing' | 'checkout-success' | 'cravings' | 'community' | 'health' | 'buddies' | 'privacy' | 'terms';
 
 function MainApp() {
   const { user, profile, loading } = useAuth();
@@ -34,9 +36,21 @@ function MainApp() {
     const handleNavigateToUpgrade = () => {
       setActiveTab('upgrade');
     };
+    const handleNavigateToPrivacy = () => {
+      setActiveTab('privacy');
+    };
+    const handleNavigateToTerms = () => {
+      setActiveTab('terms');
+    };
 
     window.addEventListener('navigate-to-upgrade', handleNavigateToUpgrade);
-    return () => window.removeEventListener('navigate-to-upgrade', handleNavigateToUpgrade);
+    window.addEventListener('navigate-to-privacy', handleNavigateToPrivacy);
+    window.addEventListener('navigate-to-terms', handleNavigateToTerms);
+    return () => {
+      window.removeEventListener('navigate-to-upgrade', handleNavigateToUpgrade);
+      window.removeEventListener('navigate-to-privacy', handleNavigateToPrivacy);
+      window.removeEventListener('navigate-to-terms', handleNavigateToTerms);
+    };
   }, []);
 
   useEffect(() => {
@@ -255,6 +269,8 @@ function MainApp() {
           {activeTab === 'profile' && <Profile />}
           {activeTab === 'pricing' && <Pricing />}
           {activeTab === 'checkout-success' && <CheckoutSuccess />}
+          {activeTab === 'privacy' && <PrivacyPolicy onBack={() => setActiveTab('profile')} />}
+          {activeTab === 'terms' && <TermsOfService onBack={() => setActiveTab('profile')} />}
         </main>
 
         <nav className={`md:hidden fixed bottom-0 left-0 right-0 border-t shadow-lg overflow-x-auto ${

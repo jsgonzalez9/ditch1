@@ -3,7 +3,7 @@ import { useAuth } from './useAuth';
 import { supabase } from '../lib/supabase';
 
 interface CheckoutOptions {
-  priceId: string;
+  id: string;
   mode: 'payment' | 'subscription';
 }
 
@@ -11,7 +11,7 @@ export const useStripe = () => {
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
 
-  const createCheckoutSession = async ({ priceId, mode }: CheckoutOptions) => {
+  const createCheckoutSession = async ({ id, mode }: CheckoutOptions) => {
     if (!user) {
       throw new Error('User must be authenticated');
     }
@@ -26,7 +26,7 @@ export const useStripe = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          priceId,
+          id,
           mode,
           userId: user.id,
           successUrl: `${window.location.origin}/checkout/success`,

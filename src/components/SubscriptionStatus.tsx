@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Crown, Loader2 } from 'lucide-react';
 import { useStripe } from '../hooks/useStripe';
-import { getProductByPriceId } from '../stripe-config';
+import { getProductById } from '../iap-config';
 
 export const SubscriptionStatus: React.FC = () => {
   const { getUserSubscription } = useStripe();
@@ -40,7 +40,7 @@ export const SubscriptionStatus: React.FC = () => {
     );
   }
 
-  const product = getProductByPriceId(subscription.price_id);
+  const product = getProductById(subscription.price_id);
   const planName = product?.name || 'Premium Plan';
 
   return (

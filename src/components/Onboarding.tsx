@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
 import { ChevronRight, Check, Bell, Crown, Sparkles, TrendingUp, Brain, DollarSign } from 'lucide-react';
-import { STRIPE_PRODUCTS } from '../stripe-config';
+import { IAP_PRODUCTS } from '../iap-config';
 
 type Step =
   | 'splash'
@@ -685,7 +685,7 @@ className="w-full  py-4 px-8 rounded-2xl font-semibold hover:bg-gray-100 transit
         );
 
       case 'premium-splash':
-        const handleCheckout = async (priceId: string, mode: 'payment' | 'subscription') => {
+        const handleCheckout = async (id: string, mode: 'payment' | 'subscription') => {
           if (!user) return;
 
           setCheckoutLoading(true);
@@ -697,7 +697,7 @@ className="w-full  py-4 px-8 rounded-2xl font-semibold hover:bg-gray-100 transit
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify({
-                price_id: priceId,
+                price_id: id,
                 success_url: `${window.location.origin}/?success=true`,
                 cancel_url: `${window.location.origin}/`,
                 mode: mode,
@@ -785,14 +785,14 @@ className="w-full  py-4 px-8 rounded-2xl font-semibold hover:bg-gray-100 transit
 
               <div className="space-y-3">
                 <button
-                  onClick={() => handleCheckout(STRIPE_PRODUCTS[1].priceId, 'subscription')}
+                  onClick={() => handleCheckout(IAP_PRODUCTS[1].id, 'subscription')}
                   disabled={checkoutLoading}
 className="w-full bg-gradient-to-r from-cyan-500 to-teal-500 text-white py-5 px-8 rounded-2xl font-bold text-xl hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(6,182,212,0.2)] transition-all duration-[400ms] cubic-bezier(0.4,0,0.2,1) disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
                   {checkoutLoading ? 'Opening checkout...' : 'Upgrade Monthly - $2.99/mo'}
                 </button>
                 <button
-                  onClick={() => handleCheckout(STRIPE_PRODUCTS[0].priceId, 'payment')}
+                  onClick={() => handleCheckout(IAP_PRODUCTS[0].id, 'payment')}
                   disabled={checkoutLoading}
 className="w-full bg-gradient-to-r from-primary-500 to-secondary-500 text-white py-5 px-8 rounded-2xl font-bold text-xl hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(6,182,212,0.2)] transition-all duration-[400ms] cubic-bezier(0.4,0,0.2,1) disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >

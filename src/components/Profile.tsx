@@ -214,6 +214,24 @@ className="w-full bg-primary-500 text-white py-3 rounded-lg hover:bg-primary-600
         </div>
       </div>
 
+      <div className="bg-white rounded-xl p-6 shadow-lg">
+        <h3 className="text-lg font-semibold  mb-4">Legal</h3>
+        <div className="space-y-3">
+          <button
+            onClick={() => window.dispatchEvent(new CustomEvent('navigate-to-privacy'))}
+            className="w-full text-left text-primary-600 hover:text-primary-700 font-medium"
+          >
+            Privacy Policy
+          </button>
+          <button
+            onClick={() => window.dispatchEvent(new CustomEvent('navigate-to-terms'))}
+            className="w-full text-left text-primary-600 hover:text-primary-700 font-medium"
+          >
+            Terms of Service
+          </button>
+        </div>
+      </div>
+
       <button
         onClick={handleSignOut}
 className="w-full bg-red-500 text-white py-3 rounded-lg hover:bg-red-600 transition font-semibold mb-6"

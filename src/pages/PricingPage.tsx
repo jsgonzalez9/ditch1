@@ -1,5 +1,5 @@
 import React from 'react'
-import { stripeProducts } from '../stripe-config'
+import { IAP_PRODUCTS } from '../iap-config'
 import { SubscriptionCard } from '../components/subscription/SubscriptionCard'
 import { ArrowLeft } from 'lucide-react'
 import { Link } from 'react-router-dom'
@@ -28,9 +28,9 @@ export function PricingPage() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {stripeProducts.map((product, index) => (
+          {IAP_PRODUCTS.map((product, index) => (
             <SubscriptionCard
-              key={product.priceId}
+              key={product.id}
               product={product}
               isPopular={index === 0}
             />

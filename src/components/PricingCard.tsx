@@ -1,11 +1,11 @@
 import React from 'react';
 import { Check, Loader2 } from 'lucide-react';
-import { StripeProduct, formatPrice } from '../stripe-config';
+import { IAPProduct, formatPrice } from '../iap-config';
 import { useStripe } from '../hooks/useStripe';
 import { useAuth } from '../hooks/useAuth';
 
 interface PricingCardProps {
-  product: StripeProduct;
+  product: IAPProduct;
   isPopular?: boolean;
 }
 
@@ -15,18 +15,9 @@ export const PricingCard: React.FC<PricingCardProps> = ({ product, isPopular = f
 
   const handleSubscribe = async () => {
     if (!user) {
-      // Redirect to login or show login modal
       return;
     }
-
-    try {
-      await createCheckoutSession({
-        priceId: product.priceId,
-        mode: product.mode,
-      });
-    } catch (error) {
-      console.error('Subscription error:', error);
-    }
+    alert('IAP integration in progress. This will work once the app is built and running on iOS with Apple In-App Purchase configured.');
   };
 
   const features = [
@@ -56,7 +47,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ product, isPopular = f
             {formatPrice(product.price, product.currency)}
           </span>
           <span className="text-gray-600 ml-2">
-            {product.mode === 'subscription' ? '/month' : '/year'}
+            {product.id.includes('monthly') ? '/month' : '/year'}
           </span>
         </div>
       </div>

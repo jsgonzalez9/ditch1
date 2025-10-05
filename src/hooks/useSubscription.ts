@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
 import { useAuth } from './useAuth'
-import { getProductByPriceId } from '../stripe-config'
+import { getProductById } from '../iap-config'
 
 export interface UserSubscription {
   customer_id: string
@@ -53,7 +53,7 @@ export function useSubscription() {
   const getSubscriptionPlan = () => {
     if (!subscription?.price_id) return null
     
-    const product = getProductByPriceId(subscription.price_id)
+    const product = getProductById(subscription.price_id)
     return product?.name || 'Unknown Plan'
   }
 

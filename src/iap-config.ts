@@ -1,36 +1,33 @@
-export interface StripeProduct {
+export interface IAPProduct {
   id: string;
-  priceId: string;
   name: string;
   description: string;
   price: number;
   currency: string;
-  mode: 'payment' | 'subscription';
+  type: 'paid subscription' | 'non consumable';
 }
 
-export const STRIPE_PRODUCTS: StripeProduct[] = [
+export const IAP_PRODUCTS: IAPProduct[] = [
   {
-    id: 'prod_TAyWp1ygevVnfH',
-    priceId: 'price_1SEcYyB93uMzjmp2yTxgmpv1',
+    id: 'com.ditch.app.premium.yearly',
     name: 'Ditch Plus Yearly',
     description: 'Annual subscription to Ditch Plus with full access to premium features',
     price: 25.00,
     currency: 'usd',
-    mode: 'payment'
+    type: 'paid subscription'
   },
   {
-    id: 'prod_TAyVPBf4QrGsqo',
-    priceId: 'price_1SEcYZB93uMzjmp2ir1NcTD0',
+    id: 'com.ditch.app.premium.monthly',
     name: 'Ditch Plus',
     description: 'Monthly subscription to Ditch Plus with premium features',
     price: 2.99,
     currency: 'usd',
-    mode: 'subscription'
+    type: 'paid subscription'
   }
 ];
 
-export const getProductByPriceId = (priceId: string): StripeProduct | undefined => {
-  return STRIPE_PRODUCTS.find(product => product.priceId === priceId);
+export const getProductById = (id: string): IAPProduct | undefined => {
+  return IAP_PRODUCTS.find(product => product.id === id);
 };
 
 export const formatPrice = (price: number, currency: string): string => {

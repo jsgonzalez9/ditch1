@@ -1,6 +1,6 @@
 import React from 'react';
 import { PricingCard } from '../components/PricingCard';
-import { STRIPE_PRODUCTS } from '../stripe-config';
+import { IAP_PRODUCTS } from '../iap-config';
 
 export const Pricing: React.FC = () => {
   return (
@@ -16,11 +16,11 @@ export const Pricing: React.FC = () => {
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {STRIPE_PRODUCTS.map((product, index) => (
+          {IAP_PRODUCTS.map((product, index) => (
             <PricingCard
               key={product.id}
               product={product}
-              isPopular={index === 0} // Make yearly plan popular
+              isPopular={index === 0}
             />
           ))}
         </div>

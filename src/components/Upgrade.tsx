@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useSubscription } from '../contexts/SubscriptionContext';
 import {
@@ -12,46 +11,21 @@ import {
   AlertCircle,
   Zap
 } from 'lucide-react';
-import { STRIPE_PRODUCTS } from '../stripe-config';
+import { IAP_PRODUCTS } from '../iap-config';
+import { useIAP } from '../hooks/useIAP';
 
 export default function Upgrade() {
   const { user } = useAuth();
   const { isPremium } = useSubscription();
-  const [loading, setLoading] = useState(false);
+  const { purchaseProduct, loading, initialized } = useIAP();
 
-  const handleCheckout = async (priceId: string, mode: 'payment' | 'subscription') => {
+  const handlePurchase = async (productId: string) => {
     if (!user) return;
-
-    setLoading(true);
-    try {
-      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/stripe-checkout`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          price_id: priceId,
-          success_url: `${window.location.origin}/?success=true`,
-          cancel_url: `${window.location.origin}/?canceled=true`,
-          mode: mode,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        console.error('No checkout URL returned:', data);
-        alert('Failed to create checkout session. Please try again.');
-        setLoading(false);
-      }
-    } catch (error) {
-      console.error('Error creating checkout session:', error);
-      alert('Failed to create checkout session. Please try again.');
-      setLoading(false);
+    if (!initialized) {
+      alert('In-App Purchase system is not ready. Please try again in a moment.');
+      return;
     }
+    await purchaseProduct(productId);
   };
 
   if (isPremium) {
@@ -149,24 +123,24 @@ export default function Upgrade() {
 
             <div className="space-y-4">
               <button
-                onClick={() => handleCheckout(STRIPE_PRODUCTS[1].priceId, 'subscription')}
-                disabled={loading}
+                onClick={() => handlePurchase(IAP_PRODUCTS[1].id)}
+                disabled={loading || !initialized}
                 className="w-full bg-gradient-to-r from-cyan-500 to-teal-500 text-white py-4 rounded-xl text-lg font-bold hover:from-cyan-600 hover:to-teal-600 transition shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {loading ? 'Opening checkout...' : 'Subscribe Monthly - $2.99/mo'}
+                {loading ? 'Processing...' : 'Subscribe Monthly - $2.99/mo'}
               </button>
 
               <button
-                onClick={() => handleCheckout(STRIPE_PRODUCTS[0].priceId, 'payment')}
-                disabled={loading}
+                onClick={() => handlePurchase(IAP_PRODUCTS[0].id)}
+                disabled={loading || !initialized}
                 className="w-full bg-gradient-to-r from-primary-500 to-secondary-500 text-white py-4 rounded-xl text-lg font-bold hover:from-primary-600 hover:to-secondary-600 transition shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {loading ? 'Opening checkout...' : 'Pay Yearly - $25/year (Save 30%)'}
+                {loading ? 'Processing...' : 'Subscribe Yearly - $25/year (Save 30%)'}
               </button>
             </div>
 
             <p className="text-center text-sm text-gray-500 mt-4">
-              Secure payment powered by Stripe • Cancel anytime
+              Secure payment powered by Apple • Cancel anytime in Settings
             </p>
           </div>
         </div>
