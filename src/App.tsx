@@ -80,7 +80,7 @@ function MainApp() {
       isDayTime ? 'bg-gradient-to-br from-cyan-50 to-teal-50' : 'bg-slate-950'
     }`}>
       <div className="max-w-7xl mx-auto">
-        <header className={`shadow-md sticky top-0 z-10 ${
+        <header className={`hidden md:block shadow-md sticky top-0 z-10 ${
           isDayTime ? 'bg-white' : 'bg-slate-800 border-b border-slate-700'
         }`}>
           <div className="px-6 py-4">
@@ -92,7 +92,7 @@ function MainApp() {
               />
             </div>
             <div className="flex items-center justify-between mt-3">
-              <nav className="hidden md:flex space-x-1 mx-auto flex-wrap justify-center">
+              <nav className="flex space-x-1 mx-auto flex-wrap justify-center">
                 <button
                   onClick={() => setActiveTab('counter')}
                   className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-[400ms] cubic-bezier(0.4,0,0.2,1) ${
