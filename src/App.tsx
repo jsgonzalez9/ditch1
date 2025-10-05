@@ -29,8 +29,6 @@ function MainApp() {
   const { isDayTime } = useTheme();
   const [activeTab, setActiveTab] = useState<Tab>('counter');
   const [unreadCount, setUnreadCount] = useState(0);
-  const [headerCompact, setHeaderCompact] = useState(false);
-  const [showHeader, setShowHeader] = useState(true);
 
   useEffect(() => {
     const handleNavigateToUpgrade = () => {
@@ -48,17 +46,6 @@ function MainApp() {
       return () => clearInterval(interval);
     }
   }, [user]);
-
-  useEffect(() => {
-    if (user && profile?.onboarding_completed) {
-      const timer1 = setTimeout(() => setHeaderCompact(true), 2000);
-      const timer2 = setTimeout(() => setShowHeader(false), 3000);
-      return () => {
-        clearTimeout(timer1);
-        clearTimeout(timer2);
-      };
-    }
-  }, [user, profile]);
 
   const fetchUnreadCount = async () => {
     const { count } = await supabase
@@ -93,26 +80,18 @@ function MainApp() {
       isDayTime ? 'bg-gradient-to-br from-cyan-50 to-teal-50' : 'bg-slate-950'
     }`}>
       <div className="max-w-7xl mx-auto">
-        <header className={`shadow-md sticky top-0 z-10 transition-all duration-1000 ease-in-out ${
+        <header className={`shadow-md sticky top-0 z-10 ${
           isDayTime ? 'bg-white' : 'bg-slate-800 border-b border-slate-700'
-        } ${
-          showHeader ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'
         }`}>
-          <div className={`px-6 transition-all duration-1000 ${
-            headerCompact ? 'py-2' : 'py-4'
-          }`}>
+          <div className="px-6 py-4">
             <div className="flex items-center justify-center">
               <img
                 src="/logo-wordmark.svg"
                 alt="Ditch"
-                className={`object-contain transition-all duration-1000 ${
-                  headerCompact ? 'h-[60px] w-[60px]' : 'h-[125px] w-[125px]'
-                }`}
+                className="object-contain h-[80px] w-[80px]"
               />
             </div>
-            <div className={`flex items-center justify-between transition-all duration-1000 ${
-              headerCompact ? 'mt-2' : 'mt-4'
-            }`}>
+            <div className="flex items-center justify-between mt-3">
               <nav className="hidden md:flex space-x-1 mx-auto flex-wrap justify-center">
                 <button
                   onClick={() => setActiveTab('counter')}
