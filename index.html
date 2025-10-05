@@ -5,14 +5,326 @@
     <link rel="icon" type="image/svg+xml" href="/logo-ultra-light.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="description" content="Ditch - Your journey to quit vaping starts here. Track your progress, stay motivated, and reclaim your health." />
+    <meta name="keywords" content="quit vaping, vaping tracker, stop vaping, health app, quit smoking, addiction recovery" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Ditch" />
-    <title>Ditch - Quit Vaping Tracker</title>
+
+    <meta property="og:title" content="Ditch - Quit Vaping Tracker" />
+    <meta property="og:description" content="Your journey to quit vaping starts here. Track your progress, stay motivated, and reclaim your health." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/Gemini_Generatedhorizonal.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Ditch - Quit Vaping Tracker" />
+    <meta name="twitter:description" content="Your journey to quit vaping starts here. Track your progress, stay motivated, and reclaim your health." />
+
+    <title>Ditch - Quit Vaping Tracker | Take Control of Your Health</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .animate-fade-in-up {
+        animation: fadeInUp 0.8s ease-out forwards;
+      }
+
+      .gradient-text {
+        background: linear-gradient(135deg, #06b6d4 0%, #14b8a6 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .hero-gradient {
+        background: linear-gradient(135deg, #ecfeff 0%, #f0fdfa 100%);
+      }
+
+      .feature-card {
+        transition: all 0.3s ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(6, 182, 212, 0.15);
+      }
+
+      .app-store-badge {
+        transition: transform 0.2s ease;
+      }
+
+      .app-store-badge:hover {
+        transform: scale(1.05);
+      }
+    </style>
   </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-    <script src="https://cdn.jsdelivr.net/npm/cordova-plugin-purchase@13/www/store.min.js"></script>
+  <body class="antialiased">
+    <nav class="fixed w-full top-0 z-50 bg-white/90 backdrop-blur-lg border-b border-gray-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center space-x-3">
+            <img src="/logo-ultra-light.svg" alt="Ditch Logo" class="h-8 w-8" />
+            <span class="text-2xl font-bold gradient-text">Ditch</span>
+          </div>
+          <div class="hidden md:flex items-center space-x-8">
+            <a href="#features" class="text-gray-700 hover:text-cyan-600 transition-colors">Features</a>
+            <a href="#how-it-works" class="text-gray-700 hover:text-cyan-600 transition-colors">How It Works</a>
+            <a href="#support" class="text-gray-700 hover:text-cyan-600 transition-colors">Support</a>
+            <a href="/app" class="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-6 py-2 rounded-full hover:shadow-lg transition-all">Open App</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero-gradient pt-24 pb-20 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div class="text-center lg:text-left">
+            <div class="inline-block mb-4 px-4 py-2 bg-cyan-100 text-cyan-700 rounded-full text-sm font-semibold">
+              Your Journey Starts Today
+            </div>
+            <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
+              Take Back Control.<br/>
+              <span class="gradient-text">Ditch Vaping.</span>
+            </h1>
+            <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+              Track your progress, stay motivated with real-time health improvements, and join a supportive community on your journey to quit vaping for good.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
+              <a href="#" class="app-store-badge inline-flex items-center justify-center">
+                <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="Download on the App Store" class="h-14" />
+              </a>
+            </div>
+            <div class="flex items-center justify-center lg:justify-start space-x-8 text-sm text-gray-600">
+              <div class="flex items-center space-x-2">
+                <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span>Free to start</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span>No credit card required</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative animate-float">
+            <div class="bg-white rounded-3xl shadow-2xl p-8 max-w-md mx-auto">
+              <div class="text-center mb-6">
+                <div class="text-5xl font-bold text-cyan-600 mb-2">342</div>
+                <div class="text-gray-600">Days Vape-Free</div>
+              </div>
+              <div class="space-y-4">
+                <div class="flex items-center justify-between p-4 bg-gradient-to-r from-cyan-50 to-teal-50 rounded-xl">
+                  <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <div class="font-semibold text-gray-900">Lung Function</div>
+                      <div class="text-sm text-gray-600">Improved by 30%</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between p-4 bg-gradient-to-r from-cyan-50 to-teal-50 rounded-xl">
+                  <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-cyan-500 rounded-full flex items-center justify-center">
+                      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <div class="font-semibold text-gray-900">Money Saved</div>
+                      <div class="text-sm text-gray-600">$2,736</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">Everything You Need to Succeed</h2>
+          <p class="text-xl text-gray-600 max-w-2xl mx-auto">Powerful tools and features designed to support you every step of the way</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="feature-card bg-gradient-to-br from-cyan-50 to-white rounded-2xl p-8 border border-gray-100">
+            <div class="w-14 h-14 bg-gradient-to-br from-cyan-500 to-teal-500 rounded-xl flex items-center justify-center mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-3">Real-Time Tracking</h3>
+            <p class="text-gray-600 leading-relaxed">Monitor every puff and watch your progress with detailed statistics and beautiful visualizations. See your improvement in real-time.</p>
+          </div>
+
+          <div class="feature-card bg-gradient-to-br from-teal-50 to-white rounded-2xl p-8 border border-gray-100">
+            <div class="w-14 h-14 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-xl flex items-center justify-center mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-3">Health Timeline</h3>
+            <p class="text-gray-600 leading-relaxed">Track your body's recovery with scientifically-backed health milestones. Celebrate each improvement in your lung function and overall health.</p>
+          </div>
+
+          <div class="feature-card bg-gradient-to-br from-cyan-50 to-white rounded-2xl p-8 border border-gray-100">
+            <div class="w-14 h-14 bg-gradient-to-br from-cyan-500 to-teal-500 rounded-xl flex items-center justify-center mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-3">Community Support</h3>
+            <p class="text-gray-600 leading-relaxed">Connect with others on the same journey. Share experiences, celebrate victories, and get support when you need it most.</p>
+          </div>
+
+          <div class="feature-card bg-gradient-to-br from-teal-50 to-white rounded-2xl p-8 border border-gray-100">
+            <div class="w-14 h-14 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-xl flex items-center justify-center mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-3">Craving Management</h3>
+            <p class="text-gray-600 leading-relaxed">Log cravings, identify triggers, and develop strategies to overcome them. Get instant support when you need it most.</p>
+          </div>
+
+          <div class="feature-card bg-gradient-to-br from-cyan-50 to-white rounded-2xl p-8 border border-gray-100">
+            <div class="w-14 h-14 bg-gradient-to-br from-cyan-500 to-teal-500 rounded-xl flex items-center justify-center mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-3">Buddy System</h3>
+            <p class="text-gray-600 leading-relaxed">Partner with accountability buddies who understand your journey. Check in, motivate each other, and succeed together.</p>
+          </div>
+
+          <div class="feature-card bg-gradient-to-br from-teal-50 to-white rounded-2xl p-8 border border-gray-100">
+            <div class="w-14 h-14 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-xl flex items-center justify-center mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-3">Smart Goals</h3>
+            <p class="text-gray-600 leading-relaxed">Set personalized reduction goals and track your progress. Celebrate milestones as you work toward becoming completely vape-free.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="py-20 px-4 sm:px-6 lg:px-8 hero-gradient">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">How Ditch Works</h2>
+          <p class="text-xl text-gray-600 max-w-2xl mx-auto">Simple steps to start your journey to a healthier, vape-free life</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-12">
+          <div class="text-center">
+            <div class="w-20 h-20 bg-gradient-to-br from-cyan-500 to-teal-500 rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto mb-6 shadow-lg">1</div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Download & Setup</h3>
+            <p class="text-gray-600 leading-relaxed">Download Ditch from the App Store and complete a quick onboarding to personalize your experience. Tell us about your vaping habits and goals.</p>
+          </div>
+
+          <div class="text-center">
+            <div class="w-20 h-20 bg-gradient-to-br from-cyan-500 to-teal-500 rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto mb-6 shadow-lg">2</div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Track Your Progress</h3>
+            <p class="text-gray-600 leading-relaxed">Log each puff or set reduction goals. Watch your statistics improve, track health milestones, and see money saved in real-time.</p>
+          </div>
+
+          <div class="text-center">
+            <div class="w-20 h-20 bg-gradient-to-br from-cyan-500 to-teal-500 rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto mb-6 shadow-lg">3</div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Stay Motivated</h3>
+            <p class="text-gray-600 leading-relaxed">Connect with the community, get support from buddies, manage cravings, and celebrate every victory on your path to becoming vape-free.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-cyan-600 to-teal-600 text-white">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-4xl sm:text-5xl font-bold mb-6">Ready to Take Control?</h2>
+        <p class="text-xl mb-8 opacity-90">Join thousands of people who have successfully quit vaping with Ditch</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <a href="#" class="app-store-badge inline-flex items-center justify-center">
+            <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/white/en-us?size=250x83" alt="Download on the App Store" class="h-14" />
+          </a>
+        </div>
+        <p class="mt-6 text-sm opacity-75">Free to download • No credit card required • Cancel anytime</p>
+      </div>
+    </section>
+
+    <footer id="support" class="bg-gray-900 text-gray-300 py-12 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-4 gap-8 mb-8">
+          <div>
+            <div class="flex items-center space-x-3 mb-4">
+              <img src="/logo-ultra-light.svg" alt="Ditch Logo" class="h-8 w-8" />
+              <span class="text-2xl font-bold text-white">Ditch</span>
+            </div>
+            <p class="text-sm">Your journey to quit vaping starts here.</p>
+          </div>
+
+          <div>
+            <h4 class="text-white font-semibold mb-4">Product</h4>
+            <ul class="space-y-2 text-sm">
+              <li><a href="#features" class="hover:text-cyan-400 transition-colors">Features</a></li>
+              <li><a href="#how-it-works" class="hover:text-cyan-400 transition-colors">How It Works</a></li>
+              <li><a href="/app" class="hover:text-cyan-400 transition-colors">Open App</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="text-white font-semibold mb-4">Support</h4>
+            <ul class="space-y-2 text-sm">
+              <li><a href="/support.html" class="hover:text-cyan-400 transition-colors">Help Center</a></li>
+              <li><a href="/support.html" class="hover:text-cyan-400 transition-colors">Contact Us</a></li>
+              <li><a href="/support.html#faq" class="hover:text-cyan-400 transition-colors">FAQs</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="text-white font-semibold mb-4">Legal</h4>
+            <ul class="space-y-2 text-sm">
+              <li><a href="/privacy.html" class="hover:text-cyan-400 transition-colors">Privacy Policy</a></li>
+              <li><a href="/terms.html" class="hover:text-cyan-400 transition-colors">Terms of Service</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="border-t border-gray-800 pt-8 text-sm text-center">
+          <p>&copy; 2025 Ditch. All rights reserved.</p>
+          <p class="mt-2 text-gray-500">Ditch is a tracking and support tool. It does not provide medical advice. Consult healthcare professionals for medical guidance.</p>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
