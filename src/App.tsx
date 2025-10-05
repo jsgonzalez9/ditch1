@@ -11,13 +11,17 @@ import Profile from './components/Profile';
 import Premium from './components/Premium';
 import Upgrade from './components/Upgrade';
 import Notifications from './components/Notifications';
+import CravingTracker from './components/CravingTracker';
+import CommunityFeed from './components/CommunityFeed';
+import HealthTimeline from './components/HealthTimeline';
+import BuddySystem from './components/BuddySystem';
 import { Pricing } from './pages/Pricing';
 import { CheckoutSuccess } from './pages/CheckoutSuccess';
-import { BarChart3, Target, User, Activity, Crown, Sparkles, Bell } from 'lucide-react';
+import { BarChart3, Target, User, Activity, Crown, Sparkles, Bell, Heart, Users, AlertCircle } from 'lucide-react';
 import { PremiumBadge } from './components/PremiumGate';
 import { supabase } from './lib/supabase';
 
-type Tab = 'counter' | 'stats' | 'goals' | 'notifications' | 'premium' | 'profile' | 'upgrade' | 'pricing' | 'checkout-success';
+type Tab = 'counter' | 'stats' | 'goals' | 'notifications' | 'premium' | 'profile' | 'upgrade' | 'pricing' | 'checkout-success' | 'cravings' | 'community' | 'health' | 'buddies';
 
 function MainApp() {
   const { user, profile, loading } = useAuth();
@@ -109,7 +113,7 @@ function MainApp() {
             <div className={`flex items-center justify-between transition-all duration-1000 ${
               headerCompact ? 'mt-2' : 'mt-4'
             }`}>
-              <nav className="hidden md:flex space-x-1 mx-auto">
+              <nav className="hidden md:flex space-x-1 mx-auto flex-wrap justify-center">
                 <button
                   onClick={() => setActiveTab('counter')}
                   className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-[400ms] cubic-bezier(0.4,0,0.2,1) ${
@@ -124,6 +128,19 @@ function MainApp() {
                   <span>Counter</span>
                 </button>
                 <button
+                  onClick={() => setActiveTab('cravings')}
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-[400ms] cubic-bezier(0.4,0,0.2,1) ${
+                    activeTab === 'cravings'
+                      ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-lg'
+                      : isDayTime
+                      ? 'text-gray-600 hover:bg-cyan-50 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                      : 'text-slate-400 hover:bg-slate-700 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                  }`}
+                >
+                  <AlertCircle className="w-5 h-5" />
+                  <span>Cravings</span>
+                </button>
+                <button
                   onClick={() => setActiveTab('stats')}
                   className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-[400ms] cubic-bezier(0.4,0,0.2,1) ${
                     activeTab === 'stats'
@@ -135,6 +152,45 @@ function MainApp() {
                 >
                   <BarChart3 className="w-5 h-5" />
                   <span>Statistics</span>
+                </button>
+                <button
+                  onClick={() => setActiveTab('health')}
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-[400ms] cubic-bezier(0.4,0,0.2,1) ${
+                    activeTab === 'health'
+                      ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-lg'
+                      : isDayTime
+                      ? 'text-gray-600 hover:bg-cyan-50 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                      : 'text-slate-400 hover:bg-slate-700 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                  }`}
+                >
+                  <Heart className="w-5 h-5" />
+                  <span>Health</span>
+                </button>
+                <button
+                  onClick={() => setActiveTab('community')}
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-[400ms] cubic-bezier(0.4,0,0.2,1) ${
+                    activeTab === 'community'
+                      ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-lg'
+                      : isDayTime
+                      ? 'text-gray-600 hover:bg-cyan-50 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                      : 'text-slate-400 hover:bg-slate-700 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                  }`}
+                >
+                  <Users className="w-5 h-5" />
+                  <span>Community</span>
+                </button>
+                <button
+                  onClick={() => setActiveTab('buddies')}
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-[400ms] cubic-bezier(0.4,0,0.2,1) ${
+                    activeTab === 'buddies'
+                      ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-lg'
+                      : isDayTime
+                      ? 'text-gray-600 hover:bg-cyan-50 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                      : 'text-slate-400 hover:bg-slate-700 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                  }`}
+                >
+                  <Users className="w-5 h-5" />
+                  <span>Buddies</span>
                 </button>
                 <button
                   onClick={() => setActiveTab('goals')}
@@ -211,6 +267,10 @@ function MainApp() {
           {activeTab === 'stats' && <Statistics />}
           {activeTab === 'goals' && <Goals />}
           {activeTab === 'notifications' && <Notifications />}
+          {activeTab === 'cravings' && <CravingTracker />}
+          {activeTab === 'community' && <CommunityFeed />}
+          {activeTab === 'health' && <HealthTimeline />}
+          {activeTab === 'buddies' && <BuddySystem />}
           {activeTab === 'premium' && <Premium />}
           {activeTab === 'upgrade' && <Upgrade />}
           {activeTab === 'profile' && <Profile />}
@@ -218,10 +278,10 @@ function MainApp() {
           {activeTab === 'checkout-success' && <CheckoutSuccess />}
         </main>
 
-        <nav className={`md:hidden fixed bottom-0 left-0 right-0 border-t shadow-lg ${
+        <nav className={`md:hidden fixed bottom-0 left-0 right-0 border-t shadow-lg overflow-x-auto ${
           isDayTime ? 'bg-white' : 'bg-slate-800 border-slate-700'
         }`}>
-          <div className="grid grid-cols-6">
+          <div className="grid grid-cols-9 min-w-max">
             <button
               onClick={() => setActiveTab('counter')}
               className={`flex flex-col items-center py-3 transition ${
@@ -241,8 +301,44 @@ function MainApp() {
               <span className="text-xs font-medium">Stats</span>
             </button>
             <button
+              onClick={() => setActiveTab('cravings')}
+              className={`flex flex-col items-center py-3 px-2 transition ${
+                activeTab === 'cravings' ? 'text-cyan-500' : isDayTime ? 'text-gray-600' : 'text-slate-400'
+              }`}
+            >
+              <AlertCircle className="w-6 h-6 mb-1" />
+              <span className="text-xs font-medium">Cravings</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('health')}
+              className={`flex flex-col items-center py-3 px-2 transition ${
+                activeTab === 'health' ? 'text-cyan-500' : isDayTime ? 'text-gray-600' : 'text-slate-400'
+              }`}
+            >
+              <Heart className="w-6 h-6 mb-1" />
+              <span className="text-xs font-medium">Health</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('community')}
+              className={`flex flex-col items-center py-3 px-2 transition ${
+                activeTab === 'community' ? 'text-cyan-500' : isDayTime ? 'text-gray-600' : 'text-slate-400'
+              }`}
+            >
+              <Users className="w-6 h-6 mb-1" />
+              <span className="text-xs font-medium">Community</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('buddies')}
+              className={`flex flex-col items-center py-3 px-2 transition ${
+                activeTab === 'buddies' ? 'text-cyan-500' : isDayTime ? 'text-gray-600' : 'text-slate-400'
+              }`}
+            >
+              <Users className="w-6 h-6 mb-1" />
+              <span className="text-xs font-medium">Buddies</span>
+            </button>
+            <button
               onClick={() => setActiveTab('goals')}
-              className={`flex flex-col items-center py-3 transition ${
+              className={`flex flex-col items-center py-3 px-2 transition ${
                 activeTab === 'goals' ? 'text-cyan-500' : isDayTime ? 'text-gray-600' : 'text-slate-400'
               }`}
             >
