@@ -19,7 +19,8 @@ import { Pricing } from './pages/Pricing';
 import { CheckoutSuccess } from './pages/CheckoutSuccess';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
-import ImprovedNavigation from './components/ImprovedNavigation';
+import { BarChart3, Target, User, Activity, Crown, Sparkles, Bell, Heart, Users, AlertCircle } from 'lucide-react';
+import { PremiumBadge } from './components/PremiumGate';
 import { supabase } from './lib/supabase';
 
 type Tab = 'counter' | 'stats' | 'goals' | 'notifications' | 'premium' | 'profile' | 'upgrade' | 'pricing' | 'checkout-success' | 'cravings' | 'community' | 'health' | 'buddies' | 'privacy' | 'terms';
@@ -93,14 +94,168 @@ function MainApp() {
       isDayTime ? 'bg-gradient-to-br from-cyan-50 to-teal-50' : 'bg-slate-950'
     }`}>
       <div className="max-w-7xl mx-auto">
-        <ImprovedNavigation
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          unreadCount={unreadCount}
-          setUnreadCount={setUnreadCount}
-        />
+        <header className={`hidden md:block shadow-md sticky top-0 z-10 ${
+          isDayTime ? 'bg-white' : 'bg-slate-800 border-b border-slate-700'
+        }`}>
+          <div className="px-6 py-4">
+            <div className="flex items-center justify-center">
+              <img
+                src="/logo-wordmark.svg"
+                alt="Ditch"
+                className="object-contain h-[80px] w-[80px]"
+              />
+            </div>
+            <div className="flex items-center justify-between mt-3">
+              <nav className="flex space-x-1 mx-auto flex-wrap justify-center">
+                <button
+                  onClick={() => setActiveTab('counter')}
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-[400ms] cubic-bezier(0.4,0,0.2,1) ${
+                    activeTab === 'counter'
+                      ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-lg'
+                      : isDayTime
+                      ? 'text-gray-600 hover:bg-cyan-50 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                      : 'text-slate-400 hover:bg-slate-700 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                  }`}
+                >
+                  <Activity className="w-5 h-5" />
+                  <span>Counter</span>
+                </button>
+                <button
+                  onClick={() => setActiveTab('cravings')}
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-[400ms] cubic-bezier(0.4,0,0.2,1) ${
+                    activeTab === 'cravings'
+                      ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-lg'
+                      : isDayTime
+                      ? 'text-gray-600 hover:bg-cyan-50 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                      : 'text-slate-400 hover:bg-slate-700 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                  }`}
+                >
+                  <AlertCircle className="w-5 h-5" />
+                  <span>Cravings</span>
+                </button>
+                <button
+                  onClick={() => setActiveTab('stats')}
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-[400ms] cubic-bezier(0.4,0,0.2,1) ${
+                    activeTab === 'stats'
+                      ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-lg'
+                      : isDayTime
+                      ? 'text-gray-600 hover:bg-cyan-50 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                      : 'text-slate-400 hover:bg-slate-700 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                  }`}
+                >
+                  <BarChart3 className="w-5 h-5" />
+                  <span>Statistics</span>
+                </button>
+                <button
+                  onClick={() => setActiveTab('health')}
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-[400ms] cubic-bezier(0.4,0,0.2,1) ${
+                    activeTab === 'health'
+                      ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-lg'
+                      : isDayTime
+                      ? 'text-gray-600 hover:bg-cyan-50 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                      : 'text-slate-400 hover:bg-slate-700 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                  }`}
+                >
+                  <Heart className="w-5 h-5" />
+                  <span>Health</span>
+                </button>
+                <button
+                  onClick={() => setActiveTab('community')}
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-[400ms] cubic-bezier(0.4,0,0.2,1) ${
+                    activeTab === 'community'
+                      ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-lg'
+                      : isDayTime
+                      ? 'text-gray-600 hover:bg-cyan-50 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                      : 'text-slate-400 hover:bg-slate-700 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                  }`}
+                >
+                  <Users className="w-5 h-5" />
+                  <span>Community</span>
+                </button>
+                <button
+                  onClick={() => setActiveTab('buddies')}
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-[400ms] cubic-bezier(0.4,0,0.2,1) ${
+                    activeTab === 'buddies'
+                      ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-lg'
+                      : isDayTime
+                      ? 'text-gray-600 hover:bg-cyan-50 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                      : 'text-slate-400 hover:bg-slate-700 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                  }`}
+                >
+                  <Users className="w-5 h-5" />
+                  <span>Buddies</span>
+                </button>
+                <button
+                  onClick={() => setActiveTab('goals')}
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-[400ms] cubic-bezier(0.4,0,0.2,1) ${
+                    activeTab === 'goals'
+                      ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-lg'
+                      : isDayTime
+                      ? 'text-gray-600 hover:bg-cyan-50 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                      : 'text-slate-400 hover:bg-slate-700 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                  }`}
+                >
+                  <Target className="w-5 h-5" />
+                  <span>Goals</span>
+                </button>
+                <button
+                  onClick={() => {
+                    setActiveTab('notifications');
+                    setUnreadCount(0);
+                  }}
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-[400ms] cubic-bezier(0.4,0,0.2,1) ${
+                    activeTab === 'notifications'
+                      ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-lg'
+                      : isDayTime
+                      ? 'text-gray-600 hover:bg-cyan-50 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                      : 'text-slate-400 hover:bg-slate-700 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                  } relative`}
+                >
+                  <Bell className="w-5 h-5" />
+                  <span>Notifications</span>
+                  {unreadCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-2 py-0.5 min-w-[20px] text-center">
+                      {unreadCount}
+                    </span>
+                  )}
+                </button>
+                <button
+                  onClick={() => setActiveTab('premium')}
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-[400ms] cubic-bezier(0.4,0,0.2,1) ${
+                    activeTab === 'premium'
+                      ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-lg'
+                      : isDayTime
+                      ? 'text-gray-600 hover:bg-cyan-50 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                      : 'text-slate-400 hover:bg-slate-700 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                  } relative`}
+                >
+                  <Sparkles className="w-5 h-5" />
+                  <span>Premium</span>
+                  {!isPremium && (
+                    <span className="absolute -top-1 -right-1">
+                      <PremiumBadge />
+                    </span>
+                  )}
+                </button>
+                <button
+                  onClick={() => setActiveTab('profile')}
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-[400ms] cubic-bezier(0.4,0,0.2,1) ${
+                    activeTab === 'profile'
+                      ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-lg'
+                      : isDayTime
+                      ? 'text-gray-600 hover:bg-cyan-50 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                      : 'text-slate-400 hover:bg-slate-700 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]'
+                  }`}
+                >
+                  <User className="w-5 h-5" />
+                  <span>Profile</span>
+                </button>
+              </nav>
+            </div>
+          </div>
+        </header>
 
-        <main className="py-8 pb-20 md:pb-8 min-h-[calc(100vh-88px)] md:min-h-0">
+        <main className="py-8 min-h-[calc(100vh-88px)]">
           {activeTab === 'counter' && <Counter />}
           {activeTab === 'stats' && <Statistics />}
           {activeTab === 'goals' && <Goals />}
@@ -117,6 +272,116 @@ function MainApp() {
           {activeTab === 'privacy' && <PrivacyPolicy onBack={() => setActiveTab('profile')} />}
           {activeTab === 'terms' && <TermsOfService onBack={() => setActiveTab('profile')} />}
         </main>
+
+        <nav className={`md:hidden fixed bottom-0 left-0 right-0 border-t shadow-lg overflow-x-auto ${
+          isDayTime ? 'bg-white' : 'bg-slate-800 border-slate-700'
+        }`}>
+          <div className="grid grid-cols-9 min-w-max">
+            <button
+              onClick={() => setActiveTab('counter')}
+              className={`flex flex-col items-center py-3 transition ${
+                activeTab === 'counter' ? 'text-cyan-500' : isDayTime ? 'text-gray-600' : 'text-slate-400'
+              }`}
+            >
+              <Activity className="w-6 h-6 mb-1" />
+              <span className="text-xs font-medium">Counter</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('stats')}
+              className={`flex flex-col items-center py-3 transition ${
+                activeTab === 'stats' ? 'text-cyan-500' : isDayTime ? 'text-gray-600' : 'text-slate-400'
+              }`}
+            >
+              <BarChart3 className="w-6 h-6 mb-1" />
+              <span className="text-xs font-medium">Stats</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('cravings')}
+              className={`flex flex-col items-center py-3 px-2 transition ${
+                activeTab === 'cravings' ? 'text-cyan-500' : isDayTime ? 'text-gray-600' : 'text-slate-400'
+              }`}
+            >
+              <AlertCircle className="w-6 h-6 mb-1" />
+              <span className="text-xs font-medium">Cravings</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('health')}
+              className={`flex flex-col items-center py-3 px-2 transition ${
+                activeTab === 'health' ? 'text-cyan-500' : isDayTime ? 'text-gray-600' : 'text-slate-400'
+              }`}
+            >
+              <Heart className="w-6 h-6 mb-1" />
+              <span className="text-xs font-medium">Health</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('community')}
+              className={`flex flex-col items-center py-3 px-2 transition ${
+                activeTab === 'community' ? 'text-cyan-500' : isDayTime ? 'text-gray-600' : 'text-slate-400'
+              }`}
+            >
+              <Users className="w-6 h-6 mb-1" />
+              <span className="text-xs font-medium">Community</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('buddies')}
+              className={`flex flex-col items-center py-3 px-2 transition ${
+                activeTab === 'buddies' ? 'text-cyan-500' : isDayTime ? 'text-gray-600' : 'text-slate-400'
+              }`}
+            >
+              <Users className="w-6 h-6 mb-1" />
+              <span className="text-xs font-medium">Buddies</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('goals')}
+              className={`flex flex-col items-center py-3 px-2 transition ${
+                activeTab === 'goals' ? 'text-cyan-500' : isDayTime ? 'text-gray-600' : 'text-slate-400'
+              }`}
+            >
+              <Target className="w-6 h-6 mb-1" />
+              <span className="text-xs font-medium">Goals</span>
+            </button>
+            <button
+              onClick={() => {
+                setActiveTab('notifications');
+                setUnreadCount(0);
+              }}
+              className={`flex flex-col items-center py-3 transition relative ${
+                activeTab === 'notifications' ? 'text-cyan-500' : isDayTime ? 'text-gray-600' : 'text-slate-400'
+              }`}
+            >
+              <Bell className="w-6 h-6 mb-1" />
+              <span className="text-xs font-medium">Alerts</span>
+              {unreadCount > 0 && (
+                <span className="absolute top-1 right-2 bg-red-500 text-white text-xs rounded-full px-1.5 min-w-[18px] text-center">
+                  {unreadCount}
+                </span>
+              )}
+            </button>
+            <button
+              onClick={() => setActiveTab('premium')}
+              className={`flex flex-col items-center py-3 transition relative ${
+                activeTab === 'premium' ? 'text-cyan-500' : isDayTime ? 'text-gray-600' : 'text-slate-400'
+              }`}
+            >
+              <Sparkles className="w-6 h-6 mb-1" />
+              <span className="text-xs font-medium">Premium</span>
+              {!isPremium && (
+                <span className="absolute top-1 right-2">
+                  <Crown className="w-3 h-3 text-orange-500" />
+                </span>
+              )}
+            </button>
+            <button
+              onClick={() => setActiveTab('profile')}
+              className={`flex flex-col items-center py-3 transition ${
+                activeTab === 'profile' ? 'text-cyan-500' : isDayTime ? 'text-gray-600' : 'text-slate-400'
+              }`}
+            >
+              <User className="w-6 h-6 mb-1" />
+              <span className="text-xs font-medium">Profile</span>
+            </button>
+          </div>
+        </nav>
       </div>
     </div>
   );
